@@ -12,7 +12,7 @@
     />
     <link rel="stylesheet" href="main.css" />
   </head>
-  <body>
+  <body class="dark">
     <div class="black-bg">
       <div class="white-bg">
         <h4>로그인하세요</h4>
@@ -98,14 +98,13 @@
       let clickCnt = 0;
       $(".badge").on("click", function () {
         // 클릭 횟수가 홀수면 Light, 짝수면 Dark
-        if (clickCnt % 2 === 0) {
-          console.log("aaa");
+        clickCnt += 1;
+        if (clickCnt % 2 !== 0) {
           $(this).html("Light 🔄");
-          clickCnt += 1;
+          $("body").removeClass("dark");
         } else {
-          console.log("bbb");
           $(this).html("Dark 🔄");
-          clickCnt += 1;
+          $("body").addClass("dark");
         }
       });
 

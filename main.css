@@ -1,3 +1,7 @@
+.dark {
+  background-color: black;
+}
+
 .list-group {
   display: none;
 }
