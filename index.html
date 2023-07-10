@@ -49,6 +49,9 @@
 
     <button id="login">로그인</button>
 
+    <!-- 다크모드 -->
+    <span class="badge bg-dark">Dark 🔄</span>
+
     <!-- jQuery CDN -->
     <script
       src="https://code.jquery.com/jquery-3.7.0.min.js"
@@ -88,6 +91,21 @@
         } else if ($("#pw").val().length < 6) {
           alert("비밀번호는 6자리 이상 입력해주세요");
           return false;
+        }
+      });
+
+      // 다크모드
+      let clickCnt = 0;
+      $(".badge").on("click", function () {
+        // 클릭 횟수가 홀수면 Light, 짝수면 Dark
+        if (clickCnt % 2 === 0) {
+          console.log("aaa");
+          $(this).html("Light 🔄");
+          clickCnt += 1;
+        } else {
+          console.log("bbb");
+          $(this).html("Dark 🔄");
+          clickCnt += 1;
         }
       });
 
