@@ -70,11 +70,19 @@
         <div class="slide-box">
           <img src="img/car3.png" />
         </div>
+        <div class="slide-box">
+          <img src="img/car1.png" />
+        </div>
+        <div class="slide-box">
+          <img src="img/car2.png" />
+        </div>
       </div>
     </div>
     <button class="slide-1">1</button>
     <button class="slide-2">2</button>
     <button class="slide-3">3</button>
+    <button class="slide-3">4</button>
+    <button class="slide-prev">이전</button>
     <button class="slide-next">다음</button>
 
     <!-- jQuery CDN -->
@@ -148,6 +156,8 @@
       // carousel
       // 버튼 누르면 해당 슬라이드 보이게 하기
       let nowPic = 1;
+      const slideCnt = $(".slide-box").length;
+      console.log("slideCnt:", slideCnt);
       $(".slide-1").on("click", () => {
         $(".slide-container").css("transform", "translateX(0)");
         nowPic = 1;
@@ -160,17 +170,33 @@
         $(".slide-container").css("transform", "translateX(-200vw)");
         nowPic = 3;
       });
-      $(".slide-next").on("click", () => {
+      $(".slide-prev").on("click", () => {
         if (nowPic === 1) {
-          $(".slide-container").css("transform", "translateX(-100vw)");
-          nowPic = 2;
+          $(".slide-container").css(
+            "transform",
+            `translateX(${(slideCnt - 1) * -100}vw`
+          );
+          return (nowPic = slideCnt);
         } else if (nowPic === 2) {
-          $(".slide-container").css("transform", "translateX(-200vw)");
-          nowPic = 3;
-        } else if (nowPic === 3) {
           $(".slide-container").css("transform", "translateX(0)");
-          nowPic = 1;
+          return (nowPic = 1);
         }
+        $(".slide-container").css(
+          "transform",
+          `translateX(${(nowPic - 2) * -100}vw`
+        );
+        nowPic--;
+      });
+      $(".slide-next").on("click", () => {
+        if (nowPic === slideCnt) {
+          $(".slide-container").css("transform", "translateX(0)");
+          return (nowPic = 1);
+        }
+        $(".slide-container").css(
+          "transform",
+          `translateX(${nowPic * -100}vw)`
+        );
+        nowPic++;
       });
     </script>
   </body>
