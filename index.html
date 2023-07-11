@@ -13,12 +13,13 @@
     <link rel="stylesheet" href="main.css" />
   </head>
   <body class="dark">
+    <!-- 로그인 모달창 -->
     <div class="black-bg">
       <div class="white-bg">
         <h4>로그인하세요</h4>
         <form action="success.html">
           <div class="my-3">
-            <input id="email" type="email" class="form-control" />
+            <input id="email" type="text" class="form-control" />
           </div>
           <div class="my-3">
             <input id="pw" type="password" class="form-control" />
@@ -30,15 +31,17 @@
       </div>
     </div>
 
+    <!-- navbar -->
     <nav class="navbar navbar-light bg-light">
       <div class="container-fluid">
-        <span class="navbar-brand">Navbar</span>
+        <span class="navbar-brand">JS</span>
         <button class="navbar-toggler" type="button">
           <span class="navbar-toggler-icon"></span>
         </button>
       </div>
     </nav>
 
+    <!-- 목차 토글 -->
     <ul class="list-group">
       <li class="list-group-item">An item</li>
       <li class="list-group-item">A second item</li>
@@ -47,10 +50,32 @@
       <li class="list-group-item">And a fifth one</li>
     </ul>
 
-    <button id="login">로그인</button>
+    <button id="login" class="btn btn-danger">로그인</button>
 
     <!-- 다크모드 -->
     <span class="badge bg-dark">Dark 🔄</span>
+
+    <!-- setTimeout, setInterval -->
+    <div class="alert alert-danger">5초 이내 구매 시 사은품 증정!</div>
+
+    <!-- carousel -->
+    <div style="overflow: hidden">
+      <div class="slide-container">
+        <div class="slide-box">
+          <img src="img/car1.png" />
+        </div>
+        <div class="slide-box">
+          <img src="img/car2.png" />
+        </div>
+        <div class="slide-box">
+          <img src="img/car3.png" />
+        </div>
+      </div>
+    </div>
+    <button class="slide-1">1</button>
+    <button class="slide-2">2</button>
+    <button class="slide-3">3</button>
+    <button class="slide-next">다음</button>
 
     <!-- jQuery CDN -->
     <script
@@ -82,14 +107,18 @@
         $(".black-bg").removeClass("modal-show");
       });
 
-      // 전송버튼 누르면 input 입력 값 공백인지 체크, 공백이면 알림창 띄움
+      // form 입력 값 검증
       // return false를 해주면 submit 전송 막음
       $("form").on("submit", () => {
-        if ($("#email").val() === "" || $("#pw").val() === "") {
-          alert("아이디와 비밀번호를 입력해주세요");
+        const email = $("#email").val();
+        const pw = $("#pw").val();
+        console.log(/\S+@\S+\.\S+/.test(email));
+        if (!/\S+@\S+\.\S+/.test(email)) {
+          alert("이메일 형식이 올바르지 않습니다.");
           return false;
-        } else if ($("#pw").val().length < 6) {
-          alert("비밀번호는 6자리 이상 입력해주세요");
+        }
+        if (!/[A-Z]/.test(pw)) {
+          alert("비밀번호는 영어 대문자가 1글자 이상 포함되어야 합니다.");
           return false;
         }
       });
@@ -108,69 +137,41 @@
         }
       });
 
-      // 3의 배수에서 '박수' 출력
-      const 삼육구 = (num) => {
-        const str = num.toString();
-        console.log(Number(str.slice(-1)));
-        Number(str.slice(-1)) % 9 === 0
-          ? console.log("박수x2")
-          : Number(str.slice(-1)) % 3 === 0
-          ? console.log("박수")
-          : console.log("통과");
+      // setTimeout
+      let countdown = 5;
+      setInterval(() => {
+        // countdown--;
+        $(".alert").html(`${countdown}초 이내 구매 시 사은품 증정`);
+        if (countdown === 0) $(".alert").hide();
+      }, 1000);
 
-        num % 9 === 0
-          ? console.log("박수x2")
-          : num % 3 === 0
-          ? console.log("박수")
-          : console.log("통과");
-      };
-
-      // 합격여부 판단하기
-      const isPass = (score1, score2) => {
-        if (score1 < 0 || score1 > 100 || score2 < 0 || score2 > 100)
-          alert("장난 노노");
-        return;
-        score1 < 40 || score2 < 40
-          ? console.log("불합격(과락)")
-          : score1 + score2 >= 120
-          ? console.log("통과")
-          : console.log("불합격");
-      };
-
-      // 변수, 사칙연산
-      let age = 28;
-      const place = "dongtan";
-
-      // 이자율 계산하기
-      const budgetAfterTwoYears = (money) => {
-        if (money < 50000) {
-          console.log(money * 1.15 * 1.15);
-        } else {
-          console.log(money * 1.2 * 1.2);
+      // carousel
+      // 버튼 누르면 해당 슬라이드 보이게 하기
+      let nowPic = 1;
+      $(".slide-1").on("click", () => {
+        $(".slide-container").css("transform", "translateX(0)");
+        nowPic = 1;
+      });
+      $(".slide-2").on("click", () => {
+        $(".slide-container").css("transform", "translateX(-100vw)");
+        nowPic = 2;
+      });
+      $(".slide-3").on("click", () => {
+        $(".slide-container").css("transform", "translateX(-200vw)");
+        nowPic = 3;
+      });
+      $(".slide-next").on("click", () => {
+        if (nowPic === 1) {
+          $(".slide-container").css("transform", "translateX(-100vw)");
+          nowPic = 2;
+        } else if (nowPic === 2) {
+          $(".slide-container").css("transform", "translateX(-200vw)");
+          nowPic = 3;
+        } else if (nowPic === 3) {
+          $(".slide-container").css("transform", "translateX(0)");
+          nowPic = 1;
         }
-      };
-
-      // 커피 리필로 최대 얼만큼 마실 수 있을까
-      // 방금 마신 커피의 3/2 만큼 총 2번 리필 해줌
-      const maxCoffee = (coffee) => {
-        const second = (coffee * 2) / 3;
-        const third = (second * 2) / 3;
-        console.log(coffee + second + third);
-      };
-
-      // 태조 이성계가 태어난 년도(1335)
-      // 답을 3번 입력했을 때 못 맞추면 '탈락'
-      let falseCnt = 0;
-      const birthYear = (year) => {
-        if (year === 1335) {
-          alert("성공");
-        } else if (falseCnt === 3) {
-          alert("바보");
-        } else {
-          alert("실패");
-          falseCnt++;
-        }
-      };
+      });
     </script>
   </body>
 </html>
