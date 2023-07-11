@@ -99,6 +99,9 @@
       crossorigin="anonymous"
     ></script>
 
+    <!-- practice -->
+    <script src="practice.js"></script>
+
     <script>
       document.querySelector(".navbar-toggler").addEventListener("click", () =>
         // toggle: 있으면 제거하고 없으면 만들고
@@ -120,7 +123,6 @@
       $("form").on("submit", () => {
         const email = $("#email").val();
         const pw = $("#pw").val();
-        console.log(/\S+@\S+\.\S+/.test(email));
         if (!/\S+@\S+\.\S+/.test(email)) {
           alert("이메일 형식이 올바르지 않습니다.");
           return false;
@@ -157,7 +159,6 @@
       // 버튼 누르면 해당 슬라이드 보이게 하기
       let nowPic = 1;
       const slideCnt = $(".slide-box").length;
-      console.log("slideCnt:", slideCnt);
       $(".slide-1").on("click", () => {
         $(".slide-container").css("transform", "translateX(0)");
         nowPic = 1;

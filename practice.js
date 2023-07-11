@@ -17,9 +17,10 @@ const 삼육구 = (num) => {
 
 // 합격여부 판단하기
 const isPass = (score1, score2) => {
-  if (score1 < 0 || score1 > 100 || score2 < 0 || score2 > 100)
+  if (score1 < 0 || score1 > 100 || score2 < 0 || score2 > 100) {
     alert("장난 노노");
-  return;
+    return;
+  }
   score1 < 40 || score2 < 40
     ? console.log("불합격(과락)")
     : score1 + score2 >= 120
@@ -60,4 +61,17 @@ const birthYear = (year) => {
     alert("실패");
     falseCnt++;
   }
+};
+
+// 분과 초를 차례로 파라미터에 입력하면 ms단위로 바꿔주는 함수
+const changeMs = (min, sec) => {
+  console.log((min * 60 + sec) * 1000);
+};
+
+// 가격을 파라미터로 입력하면 10% 할인가 알려주는 함수
+// 첫 구매인 경우(true | false) 1.5달러 할인
+const discount = (price, first) => {
+  first
+    ? console.log((price * 0.9).toFixed(1) - 1.5)
+    : console.log((price * 0.9).toFixed(1));
 };
