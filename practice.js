@@ -75,3 +75,37 @@ const discount = (price, first) => {
     ? console.log((price * 0.9).toFixed(1) - 1.5)
     : console.log((price * 0.9).toFixed(1));
 };
+
+// Array에서 철수라는 자료 찾기(반복문으로 풀기)
+var 출석부 = ["흥민", "영희", "철수", "재석", "철수"];
+
+function 이름찾기(name) {
+  for (let i = 0; i < 출석부.length; i++) {
+    if (출석부[i] == name) {
+      return console.log("있어요");
+    }
+  }
+}
+
+// 구구단 출력하기
+for (let i = 2; i < 10; i++) {
+  for (let j = 1; j < 10; j++) {
+    console.log(i * j);
+  }
+}
+
+// 평균점수 계산기 만들기
+function 평균점수(nowArr, lastEverage) {
+  let sum = 0;
+  let everage = 0;
+  let diff = 0;
+  for (let i = 0; i < nowArr.length; i++) {
+    sum += nowArr[i];
+    everage = sum / nowArr.length;
+    diff = Math.abs(everage - lastEverage);
+  }
+
+  return everage > lastEverage
+    ? console.log(`지난 평균보다 ${diff}점 올랐네요`)
+    : console.log(`지난 평균보다 ${diff}점 떨어졌네요`);
+}
