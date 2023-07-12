@@ -112,22 +112,19 @@
 
     <script>
       document.querySelector(".navbar-toggler").addEventListener("click", () =>
-        // toggle: 있으면 제거하고 없으면 만들고
-        // querySelector: 가장 상위 태그 하나만 찾음
-        // querySelectorAll: 해당되는 모든 태그 찾음 -> index 같이 입력하면 해당 태그만 찾음
+        /**
+         * toggle: 있으면 제거하고 없으면 만들고
+         * querySelector: 가장 상위 태그 하나만 찾음
+         * querySelectorAll: 해당되는 모든 태그 찾음 -> index 같이 입력하면 해당 태그만 찾음
+         */
+
         document.querySelector(".list-group").classList.toggle("show")
       );
 
-      $("#login").on("click", () => {
-        $(".black-bg").addClass("modal-show");
-      });
-
-      $("#close").on("click", () => {
-        $(".black-bg").removeClass("modal-show");
-      });
-
-      // form 입력 값 검증
-      // return false를 해주면 submit 전송 막음
+      /**
+       * form 입력 값 검증
+       * return false를 해주면 submit 전송 막음
+       */
       $("form").on("submit", () => {
         const email = $("#email").val();
         const pw = $("#pw").val();
@@ -163,8 +160,10 @@
         if (countdown === 0) $(".alert").hide();
       }, 1000);
 
-      // carousel
-      // 버튼 누르면 해당 슬라이드 보이게 하기
+      /**
+       * carousel
+       * 버튼 누르면 해당 슬라이드 보이게 하기
+       */
       let nowPic = 1;
       const slideCnt = $(".slide-box").length;
       $(".slide-1").on("click", () => {
@@ -242,6 +241,20 @@
       document.documentElement.scrollHeight;
       document.querySelector("html").clientHeight;
       window.screenY;
+
+      /**
+       * modal
+       */
+      $("#login").on("click", () => {
+        $(".black-bg").addClass("show-modal");
+      });
+      $("#close").on("click", () => {
+        $(".black-bg").removeClass("show-modal");
+      });
+      // 모달창 바깥 부분 클릭하면 닫기(이벤트 버블링 방지)
+      $(".black-bg").on("click", function (e) {
+        if (e.target == this) $(this).removeClass("show-modal");
+      });
     </script>
   </body>
 </html>

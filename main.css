@@ -21,7 +21,8 @@
   height: 100%;
   position: fixed;
   background: rgba(0, 0, 0, 0.5);
-  z-index: 5;
+  color: black;
+  z-index: 1;
   padding: 30px;
   /* display: none과 유사 */
   visibility: hidden;
@@ -38,7 +39,6 @@
   position: sticky;
   top: 0;
   width: 100%;
-  z-index: 5;
 }
 
 .navbar-brand {
@@ -46,7 +46,7 @@
   transition: all 0.5s;
 }
 
-.modal-show {
+.show-modal {
   /* display: block과 유사 */
   visibility: visible;
   opacity: 1;

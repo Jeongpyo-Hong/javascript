@@ -52,11 +52,18 @@
       }
     </style>
 
+    <div class="container mt3">
+      <div class="card p-3">
+        <span class="car-title">상품명</span>
+        <span class="car-price">가격</span>
+      </div>
+    </div>
+
     <div class="container mt-5">
       <ul class="list">
-        <li class="tab-button orange">Products</li>
-        <li class="tab-button">Information</li>
-        <li class="tab-button">Shipping</li>
+        <li class="tab-button orange" data-id="0">Products</li>
+        <li class="tab-button" data-id="1">Information</li>
+        <li class="tab-button" data-id="2">Shipping</li>
       </ul>
       <div class="tab-content show">
         <p>상품설명입니다. Product</p>
@@ -68,6 +75,15 @@
         <p>배송정보입니다. Shipping</p>
       </div>
     </div>
+
+    <form class="container my-5 form-group">
+      <p>상품선택</p>
+      <select class="form-select mt-2">
+        <option>모자</option>
+        <option>셔츠</option>
+      </select>
+    </form>
+
     <!-- jQuery CDN -->
     <script
       src="https://code.jquery.com/jquery-3.7.0.min.js"
@@ -75,6 +91,18 @@
       crossorigin="anonymous"
     ></script>
 
+    <!-- 부트스트랩 CDN -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+      crossorigin="anonymous"
+    ></script>
+
     <script src="tab.js"></script>
+    <script>
+      const car2 = { name: "소나타", price: [50000, 3000, 4000] };
+      document.querySelector(".car-title").innerHTML = car2.name;
+      document.querySelector(".car-price").innerHTML = car2.price[0];
+    </script>
   </body>
 </html>
