@@ -85,6 +85,14 @@
     <button class="slide-prev">이전</button>
     <button class="slide-next">다음</button>
 
+    <div class="lorem" style="width: 200px; height: 100px; overflow-y: scroll">
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia iusto
+      quaerat nemo, tempore quo natus voluptatibus ex minus quidem impedit.
+      Repellat quas libero quis vel laborum dolorum error voluptas ipsam.
+    </div>
+
+    <div style="height: 1000px"></div>
+
     <!-- jQuery CDN -->
     <script
       src="https://code.jquery.com/jquery-3.7.0.min.js"
@@ -198,6 +206,33 @@
           `translateX(${nowPic * -100}vw)`
         );
         nowPic++;
+      });
+
+      // 스크롤 이벤트 (window 안에 document 포함)
+      // 부트스트랩 사용하면 스크롤이 스무스하게 동작
+      // scrollY == pageYOffset
+      // window.scrollTo(x, y): 원하는 위치로 이동
+      // window.scrollBy(x, y): 현재 위치에서 입력한 만큼 이동
+      $(window).on("scroll", function () {
+        // 스크롤바를 100 이상 내리면 navbar 텍스트 작게 만들기
+        $(this).scrollTop() > 100
+          ? $(".navbar-brand").css("fontSize", "20px")
+          : $(".navbar-brand").css("fontSize", "30px");
+      });
+      // window.addEventListener("scroll", () => {
+      //   console.log(window.scrollY);
+      // });
+
+      // div 실제 높이  = div 스크롤 내린 양 + div 화면에 보이는 높이
+      // 약간의 오차가 있으므로 여유를 주는 것이 좋음
+      $(".lorem").on("scroll", () => {
+        // div박스 스크롤 얼마나 내렸는지
+        let divHeight = document.querySelector(".lorem").clientHeight;
+        let scrollY = document.querySelector(".lorem").scrollTop;
+        let scrollHeight = document.querySelector(".lorem").scrollHeight;
+        scrollHeight < scrollY + divHeight + 5
+          ? alert("스크롤 끝까지 내림")
+          : null;
       });
     </script>
   </body>

@@ -1,5 +1,11 @@
+:root {
+  /* 스크롤 바 스무스하게 동작하는 것 방지 */
+  scroll-behavior: auto;
+}
+
 .dark {
   background-color: black;
+  color: white;
 }
 
 .list-group {
@@ -26,6 +32,18 @@
   background: white;
   border-radius: 5px;
   padding: 30px;
+}
+
+.navbar {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  z-index: 5;
+}
+
+.navbar-brand {
+  font-size: 30px;
+  transition: all 0.5s;
 }
 
 .modal-show {
