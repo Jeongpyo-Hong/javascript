@@ -69,7 +69,7 @@
           <img src="https://via.placeholder.com/600" class="w-100" />
           <h5>${item.title}</h5>
           <p>가격 : ${item.price}</p>
-          <button>구매</button>
+          <button class="buy">구매</button>
         </div>`;
 
       products.forEach((item) => {
@@ -156,6 +156,30 @@
       $("#orderReset").on("click", () => {
         $(".row").empty();
         tempProducts.forEach((item) => $(".row").append(card(item)));
+      });
+
+      /**
+       * 구매버튼 클릭 시 '로컬스토리지'에 데이터 저장
+       * 기본적으로 문자 형태만 value로 저장이 가능(객체, 배열도 문자로 강제 변환됨)
+       * 객체 또는 배열 형태로 저장하려면 json 활용
+       */
+      $(".buy").on("click", function () {
+        // 형제 요소 중 상품명 가져오기
+        const title = $(this).siblings("h5").text();
+        if (localStorage.cart) {
+          const arr = JSON.parse(localStorage.getItem("cart"));
+          for (let i = 0; i < arr.length; i++) {
+            if (arr[i].title == title) {
+              arr[i].count++;
+              return localStorage.setItem("cart", JSON.stringify(arr));
+            }
+          }
+          localStorage.removeItem("cart");
+          arr.push({ title, count: 1 });
+          localStorage.setItem("cart", JSON.stringify(arr));
+        } else {
+          localStorage.setItem("cart", JSON.stringify([{ title, count: 1 }]));
+        }
       });
     </script>
   </body>
