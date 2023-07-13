@@ -13,31 +13,30 @@
     <link rel="stylesheet" href="main.css" />
   </head>
   <body>
-    <div class="card-group container">
-      <div class="card">
-        <img src="https://via.placeholder.com/600" />
-        <div class="card-body">
-          <h5>Card title</h5>
-          <p>가격 : 70000</p>
-          <button class="btn btn-danger">주문하기</button>
-        </div>
-      </div>
-      <div class="card">
-        <img src="https://via.placeholder.com/600" />
-        <div class="card-body">
-          <h5>Card title</h5>
-          <p>가격 : 70000</p>
-          <button class="btn btn-danger">주문하기</button>
-        </div>
-      </div>
-      <div class="card">
-        <img src="https://via.placeholder.com/600" />
-        <div class="card-body">
-          <h5>Card title</h5>
-          <p>가격 : 70000</p>
-          <button class="btn btn-danger">주문하기</button>
-        </div>
-      </div>
+    <div class="container">
+      <div class="row"></div>
+    </div>
+
+    <div class="container">
+      <button class="btn btn-danger mt-3" id="more">더보기</button>
+    </div>
+
+    <div class="container">
+      <button class="btn btn-danger mt-3" id="orderByPrice">가격순</button>
+      <button class="btn btn-danger mt-3 ms-3" id="orderByName">이름순</button>
+      <button class="btn btn-danger mt-3 ms-3" id="orderByNameReverse">
+        이름역순
+      </button>
+      <button class="btn btn-primary mt-3 ms-3" id="orderReset">초기화</button>
+    </div>
+
+    <div class="container">
+      <button class="btn btn-danger mt-3" id="filter">60000원 이하 필터</button>
+    </div>
+
+    <div class="container" style="margin-top: 20px">
+      <input type="text" placeholder="입력 가격 이하(원)" class="inputPrice" />
+      <button class="btn btn-primary ms-3" id="inputFilter">필터</button>
     </div>
 
     <!-- jQuery CDN -->
@@ -60,13 +59,103 @@
         { id: 1, price: 50000, title: "Springfield Shirt" },
         { id: 2, price: 60000, title: "Black Monastery" },
       ];
+      const tempProducts = [...products];
 
       /**
        * 데이터 바인딩
        */
-      products.map((item) => {
-        $(".card-body h5").eq(item.id).html(item.title);
-        $(".card-body p").eq(item.id).html(`가격 : ${item.price}`);
+      const card = (item) =>
+        `<div class="col-sm-4" key=${item.id}>
+          <img src="https://via.placeholder.com/600" class="w-100" />
+          <h5>${item.title}</h5>
+          <p>가격 : ${item.price}</p>
+          <button>구매</button>
+        </div>`;
+
+      products.forEach((item) => {
+        $(".row").append(card(item));
+      });
+
+      /**
+       *  Ajax 통신으로 데이터 가져오기
+       * */
+      let moreCliked = 0;
+      $("#more").on("click", () => {
+        moreCliked++;
+        $.get(`https://codingapple1.github.io/js/more${moreCliked}.json`).done(
+          (data) => {
+            data.forEach((item) => {
+              $(".row").append(card(item));
+            });
+          }
+        );
+      });
+
+      /**
+       * 가격순 정렬
+       */
+      $("#orderByPrice").on("click", () => {
+        $(".row").empty();
+        // sort 함수는 원본을 변형함
+        products.sort((a, b) => a.price - b.price);
+        products.forEach((item) => {
+          $(".row").append(card(item));
+        });
+      });
+
+      /**
+       * 이름순 정렬
+       */
+      $("#orderByName").on("click", () => {
+        $(".row").empty();
+        // sort 함수는 원본을 변형함
+        products.sort((a, b) => (a.title > b.title ? 1 : -1));
+        products.forEach((item) => {
+          $(".row").append(card(item));
+        });
+      });
+
+      /**
+       * 이름역순 정렬
+       */
+      $("#orderByNameReverse").on("click", () => {
+        $(".row").empty();
+        products.sort((a, b) => (a.title > b.title ? -1 : 1));
+        products.forEach((item) => {
+          $(".row").append(card(item));
+        });
+      });
+
+      /**
+       * 가격 필터
+       */
+      $("#filter").on("click", () => {
+        $(".row").empty();
+        // filter 함수는 원본을 변형하지 않음
+        const arr = products.filter((item) => item.price <= 60000);
+        arr.forEach((item) => {
+          $(".row").append(card(item));
+        });
+      });
+
+      /**
+       * 입력 가격 이하만 필터
+       */
+      $("#inputFilter").on("click", () => {
+        $(".row").empty();
+        const price = $(".inputPrice").val();
+        const arr = products.filter((item) => item.price <= price);
+        arr.forEach((item) => {
+          $(".row").append(card(item));
+        });
+      });
+
+      /**
+       * 상품 정렬 초기화
+       */
+      $("#orderReset").on("click", () => {
+        $(".row").empty();
+        tempProducts.forEach((item) => $(".row").append(card(item)));
       });
     </script>
   </body>
