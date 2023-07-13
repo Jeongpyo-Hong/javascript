@@ -88,11 +88,13 @@ function 이름찾기(name) {
 }
 
 // 구구단 출력하기
-for (let i = 2; i < 10; i++) {
-  for (let j = 1; j < 10; j++) {
-    console.log(i * j);
+const gugudan = () => {
+  for (let i = 2; i < 10; i++) {
+    for (let j = 1; j < 10; j++) {
+      console.log(i * j);
+    }
   }
-}
+};
 
 // 평균점수 계산기 만들기
 function 평균점수(nowArr, lastEverage) {
