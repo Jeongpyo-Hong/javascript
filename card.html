@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="card.css" />
+  </head>
+  <body>
+    <!-- jQuery CDN -->
+    <div class="card-background">
+      <div class="card-box">
+        <img src="img/card1.png" />
+      </div>
+      <div class="card-box">
+        <img src="img/card2.png" />
+      </div>
+      <div class="card-box">
+        <img src="img/card3.png" />
+      </div>
+    </div>
+
+    <script
+      src="https://code.jquery.com/jquery-3.7.0.min.js"
+      integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g="
+      crossorigin="anonymous"
+    ></script>
+
+    <script>
+      $(window).scroll(function () {
+        let height = $(window).scrollTop();
+        // 650~1350 까지 스크롤바 내리면 1번째 이미지 opacity 서서히 0으로 변경
+        let y = (-1 / 700) * height + 1350 / 700;
+        let s = (-1 / 7000) * height + 7650 / 7000;
+        console.log(s);
+        $(".card-box").eq(0).css("opacity", y);
+        $(".card-box").eq(0).css("transform", `scale(${s})`);
+      });
+    </script>
+  </body>
+</html>
